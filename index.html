@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reportes Estudiantiles - Politécnico Rafaela Marrero Paulino</title>
+<style>
+:root{--navy:#0b1560;--ink:#1f2440;--muted:#626985;--line:#dfe2f0;--accent:#2457d6;--accent2:#0ea5c6;--soft:#eaf0ff}
+body[data-tab="psico"]{--accent:#7438c9;--accent2:#d0468f;--soft:#f4ecfd}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Segoe UI',system-ui,Tahoma,Verdana,sans-serif;color:var(--ink);min-height:100vh;
+ background:radial-gradient(circle at 0 0,var(--soft),transparent 45%),radial-gradient(circle at 100% 100%,#fff1d6,transparent 40%),#f5f6fb;background-attachment:fixed}
+header{background:linear-gradient(120deg,var(--navy),var(--accent) 65%,var(--accent2));color:#fff;padding:22px 24px 56px}
+.wrap{max-width:1440px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{width:74px;height:74px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:19px;overflow:hidden;flex:none;border:3px solid #ffd166}
+.logo img{width:100%;height:100%;object-fit:cover}
+.brand h1{margin:0;font-size:clamp(1.15rem,2.4vw,1.7rem);line-height:1.2}
+.brand p{margin:4px 0 0;opacity:.9;font-size:.9rem}
+.brand .grow{flex:1;min-width:230px}
+.logo-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:99px;padding:8px 15px;cursor:pointer;font:inherit;font-size:.82rem}
+.logo-btn:hover{background:rgba(255,255,255,.28)}
+nav.wrap{margin-top:-34px;padding:0 24px;position:relative}
+.tabs{display:flex;gap:12px;flex-wrap:wrap}
+.tab{flex:1;min-width:240px;display:flex;align-items:center;gap:14px;text-align:left;background:#fff;border:2px solid transparent;border-radius:16px;padding:13px 18px;cursor:pointer;font:inherit;color:var(--ink);box-shadow:0 8px 22px rgba(20,25,80,.13);transition:transform .2s,border-color .2s}
+.tab:hover{transform:translateY(-2px)}
+.tab .ico{font-size:1.5rem;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:#eef0f7;flex:none}
+.tab strong{display:block}
+.tab small{color:var(--muted)}
+.tab[aria-selected="true"]{border-color:var(--accent);background:linear-gradient(135deg,#fff,var(--soft))}
+.tab[aria-selected="true"] .ico{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #ffb703;outline-offset:1px}
+main{padding:20px 24px 30px}
+.panel{display:none;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:22px;align-items:start}
+.panel.active{display:grid;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.card{background:#fff;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 4px 16px rgba(20,25,80,.07);border:1px solid var(--line)}
+.card h2{margin:0 0 14px;font-size:1rem;display:flex;align-items:center;gap:10px;color:var(--navy)}
+.num{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:.82rem;flex:none}
+.card h4{margin:14px 0 8px;font-size:.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.f{grid-column:span 6;display:flex;flex-direction:column;gap:5px;font-size:.82rem;font-weight:600}
+.f.h{grid-column:span 3}.f.t{grid-column:span 2}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;padding:10px 11px;border:1.5px solid var(--line);border-radius:10px;font:inherit;font-weight:400;font-size:.9rem;background:#fbfbfe;color:var(--ink)}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px var(--soft)}
+textarea{min-height:105px;resize:vertical}
+.checks{display:grid;gap:8px}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:.86rem;cursor:pointer;transition:background .15s,border-color .15s}
+.chk:hover{border-color:var(--accent)}
+.chk:has(input:checked){background:var(--soft);border-color:var(--accent);font-weight:600}
+.chk input{width:17px;height:17px;margin:1px 0 0;accent-color:var(--accent);flex:none}
+.chk span{flex:1}
+.action{display:flex;gap:8px;flex-wrap:wrap}
+.action .chk{flex:1;min-width:230px}
+.action input[type=date]{width:155px}
+.bar{position:sticky;bottom:10px;display:flex;gap:10px;background:rgba(255,255,255,.94);padding:12px;border-radius:14px;box-shadow:0 6px 22px rgba(20,25,80,.18);z-index:2}
+.btn{flex:1;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:700;cursor:pointer}
+.btn.pri{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;flex:2}
+.btn.sec{background:#eceef5;color:var(--ink)}
+.btn:hover{filter:brightness(1.06)}
+.preview{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.preview-label{font-size:.8rem;color:var(--muted);margin:0 0 8px;font-weight:600}
+/* Documento */
+.sheet{background:#fff;color:#111;padding:34px;border-radius:6px;box-shadow:0 10px 30px rgba(20,25,80,.16);font-size:11.5px;line-height:1.4;overflow-wrap:anywhere}
+.dh{display:flex;align-items:center;gap:16px;border-bottom:3px double var(--navy);padding-bottom:10px;text-align:center}
+.dh .logo{width:72px;height:72px;border:1px solid #bbb;font-size:17px}
+.dh div:last-child{flex:1}
+.dh h3{margin:0 0 4px;font-size:15px;color:var(--navy)}
+.dh p{margin:0}
+.dt{text-align:center;font-size:14px;font-weight:700;text-transform:uppercase;margin:12px 0 6px}
+.conf{text-align:center;font-size:10px;font-weight:700;color:#b71c1c;margin-bottom:6px}
+.st{font-weight:700;text-transform:uppercase;font-size:10.5px;background:#e9ebf5;border-left:4px solid var(--navy);padding:4px 7px;margin:11px 0 6px;break-after:avoid}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+td{border:1px solid #333;padding:4px 6px;vertical-align:top}
+td.cat{background:#eee;font-weight:700}
+.v{display:inline-block;min-width:45px;min-height:1.35em;border-bottom:1px solid #777;vertical-align:bottom;padding:0 3px;color:#07104d;font-weight:600}
+td .v{border:0}
+.box{border:1px solid #333;min-height:52px;padding:6px;white-space:pre-wrap;color:#07104d}
+.hint{font-size:9.5px;margin-bottom:4px}
+.m{display:flex;gap:6px;align-items:flex-start;padding:1.5px 0}
+.m i{width:12px;height:12px;border:1.2px solid #222;flex:none;margin-top:1px;font-style:normal;font-weight:800;font-size:11px;line-height:9.5px;text-align:center}
+.m.on i::after{content:"X"}
+.m.on{font-weight:700}
+.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:14px}
+.signs{display:flex;justify-content:space-between;margin-top:20px;text-align:center;break-inside:avoid}
+.signs>div{width:44%}
+.sl{border-top:1px solid #000;margin:34px 0 4px}
+@media (max-width:980px){.panel.active{grid-template-columns:minmax(0,1fr)}.preview{position:static;max-height:none}}
+@media (max-width:560px){header,nav,main{padding-left:16px;padding-right:16px}.f.h,.f.t{grid-column:span 6}.sheet{padding:16px}.cols{grid-template-columns:1fr}.dh .logo{display:none}}
+@page{size:letter;margin:11mm}
+@media print{
+ body{background:#fff;min-height:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ header,nav,.form,.preview-label{display:none!important}
+ main,.wrap{padding:0;margin:0;max-width:none}
+ .panel.active{display:block;animation:none}
+ .preview{position:static;max-height:none;overflow:visible}
+ .sheet{box-shadow:none;padding:0;border-radius:0;font-size:10.5px}
+ .cols{grid-template-columns:1fr 1fr}.dh .logo{display:grid}
+ .box{min-height:44px}
+ #psico .sheet{font-size:10px;line-height:1.3}
+ #psico .dh{padding-bottom:6px}#psico .dh .logo{width:58px;height:58px}
+ #psico .dt{margin:7px 0 3px}#psico .st{margin:7px 0 4px;padding:2px 7px}#psico td{padding:2.5px 5px}
+ #previasDoc{display:grid;grid-template-columns:1fr 1fr;column-gap:14px}
+ #psico .sl{margin-top:24px}#psico .signs br+br{display:none}
+}
+</style>
+</head>
+<body data-tab="acad">
+
+<header>
+ <div class="wrap brand">
+  <div class="logo" data-logo>PRMP</div>
+  <div class="grow">
+   <h1>Politécnico Rafaela Marrero Paulino</h1>
+   <p>Portal de Reportes Estudiantiles · Año escolar 2026-2027</p>
+  </div>
+  <button class="logo-btn" type="button" id="logoBtn">🖼️ Cargar logo</button>
+  <input type="file" id="logoFile" accept="image/*" hidden>
+ </div>
+</header>
+
+<nav class="wrap">
+ <div class="tabs" role="tablist">
+  <button class="tab" role="tab" id="tab-acad" data-t="acad" aria-selected="true" aria-controls="acad">
+   <span class="ico">📚</span><span><strong>Incidencias Académicas</strong><small>Ficha del maestro al coordinador</small></span></button>
+  <button class="tab" role="tab" id="tab-psico" data-t="psico" aria-selected="false" aria-controls="psico">
+   <span class="ico">🧠</span><span><strong>Referimiento a Psicología</strong><small>Orientación y Psicología (confidencial)</small></span></button>
+ </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= ACADÉMICO ================= -->
+<section class="panel active" id="acad" role="tabpanel" aria-labelledby="tab-acad">
+ <form class="form" onsubmit="return false">
+  <div class="card"><h2><span class="num">I</span>Datos generales</h2><div class="grid">
+   <label class="f h">Fecha<input type="date" data-f="fecha" data-today></label>
+   <label class="f h">Área / Módulo formativo<input type="text" data-f="area" placeholder="Ej: Matemáticas, Lengua..."></label>
+   <label class="f h">Coordinador responsable del grado<input type="text" data-f="coordinador" placeholder="Nombre del coordinador"></label>
+   <label class="f h">Maestro que refiere<input type="text" data-f="maestro" placeholder="Nombre del maestro"></label>
+  </div></div>
+  <div class="card"><h2><span class="num">★</span>Datos del/a estudiante</h2><div class="grid">
+   <label class="f">Nombres y apellidos<input type="text" data-f="estudiante" placeholder="Nombre completo"></label>
+   <label class="f h">Sexo<select data-f="sexo"><option value="">Seleccione</option><option>Masculino</option><option>Femenino</option></select></label>
+   <label class="f h">Edad<input type="number" min="0" max="99" data-f="edad" placeholder="Años"></label>
+   <label class="f h">Grado<input type="text" data-f="grado" placeholder="Ej: 1ro"></label>
+   <label class="f h">Sección<input type="text" data-f="seccion" placeholder="Ej: A"></label>
+  </div></div>
+  <div class="card"><h2><span class="num">II</span>Motivo(s) del referimiento</h2><div class="checks" id="motivos"></div></div>
+  <div class="card"><h2><span class="num">III</span>Otros aspectos que inciden en el bajo rendimiento</h2><textarea data-f="otros" aria-label="Otros aspectos" placeholder="Escriba aquí..."></textarea></div>
+  <div class="card"><h2><span class="num">IV</span>Explicación clara y precisa del referimiento</h2><textarea data-f="explicacion" aria-label="Explicación" placeholder="Escriba aquí..."></textarea></div>
+  <div class="card"><h2><span class="num">V</span>¿Desde cuándo se da esta situación?</h2><textarea data-f="desde" aria-label="Desde cuándo" placeholder="Ej: Inicio del período, hace 2 meses..."></textarea></div>
+  <div class="card"><h2><span class="num">VI</span>Acciones realizadas para resolver la problemática</h2><textarea data-f="acciones" aria-label="Acciones" placeholder="Escriba aquí..."></textarea></div>
+  <div class="bar"><button type="button" class="btn sec" data-clear>🧹 Limpiar</button><button type="button" class="btn pri" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button></div>
+ </form>
+
+ <div class="preview"><p class="preview-label">👁️ Vista previa del documento</p>
+  <article class="sheet">
+   <div class="dh"><div class="logo" data-logo>PRMP</div><div><h3>POLITÉCNICO RAFAELA MARRERO PAULINO</h3><p>Código del Centro (15446) Los Ángeles, Santiago, (R.D.) Tel. (809) 471-2898</p></div></div>
+   <div class="dt">Ficha de incidencias académicas</div>
+   <div style="text-align:right"><b>Fecha:</b> <span class="v" data-p="fecha" style="min-width:90px"></span></div>
+   <div class="st">I- Datos generales</div>
+   <table>
+    <tr><td><b>Coordinador responsable del grado:</b><br><span class="v" data-p="coordinador"></span></td><td><b>Maestro que refiere:</b><br><span class="v" data-p="maestro"></span></td></tr>
+    <tr><td colspan="2"><b>Área / Módulo Formativo:</b> <span class="v" data-p="area"></span></td></tr>
+   </table>
+   <div class="st">Datos del/a estudiante</div>
+   <table>
+    <tr><td colspan="4"><b>Nombres y apellidos:</b> <span class="v" data-p="estudiante"></span></td></tr>
+    <tr><td><b>Sexo:</b> <span class="v" data-p="sexo"></span></td><td><b>Edad:</b> <span class="v" data-p="edad"></span></td><td><b>Grado:</b> <span class="v" data-p="grado"></span></td><td><b>Sección:</b> <span class="v" data-p="seccion"></span></td></tr>
+   </table>
+   <div class="st">II- Motivo(s) del referimiento</div><div class="cols" id="motivosDoc"></div>
+   <div class="st">III- Otros aspectos que incidan en el bajo rendimiento académico</div><div class="box" data-p="otros"></div>
+   <div class="st">IV- Explicación clara y precisa del referimiento</div><div class="box" data-p="explicacion"></div>
+   <div class="st">V- Indique desde cuándo se está dando esta situación</div><div class="box" data-p="desde"></div>
+   <div class="st">VI- Acciones realizadas para resolver la problemática</div><div class="box" data-p="acciones"></div>
+   <div class="signs"><div><div class="sl"></div>Firma del maestro que reporta</div><div><div class="sl"></div>Firma del coordinador responsable</div></div>
+  </article>
+ </div>
+</section>
+
+<!-- ================= PSICOLOGÍA ================= -->
+<section class="panel" id="psico" role="tabpanel" aria-labelledby="tab-psico">
+ <form class="form" onsubmit="return false">
+  <div class="card"><h2><span class="num">1</span>Datos generales</h2><div class="grid">
+   <label class="f h">Regional<input type="text" data-f="regional" value="10 - Santiago"></label>
+   <label class="f h">Distrito educativo<input type="text" data-f="distrito" value="10-04"></label>
+   <label class="f">Centro educativo<input type="text" data-f="centro" value="Politécnico Rafaela Marrero Paulino"></label>
+   <label class="f h">Tanda<select data-f="tanda"><option value="Matutina">Matutina</option><option value="Vespertina">Vespertina</option><option value="Jornada Escolar Extendida (JEE)">Jornada Escolar Extendida (JEE)</option></select></label>
+   <label class="f h">Fecha de referimiento<input type="date" data-f="fechaRef" data-today></label>
+   <label class="f">Nombre(s) y apellido(s) del estudiante<input type="text" data-f="estudiante" placeholder="Nombre completo"></label>
+   <label class="f t">Fecha de nacimiento<input type="date" data-f="nac"></label>
+   <label class="f t">Edad<input type="number" min="0" max="99" data-f="edad" placeholder="Años"></label>
+   <label class="f t">Sexo<select data-f="sexo"><option value="">Seleccione</option><option value="Masculino">Masculino (M)</option><option value="Femenino">Femenino (F)</option></select></label>
+   <label class="f t">Nivel<input type="text" data-f="nivel" value="Secundario"></label>
+   <label class="f t">Grado<input type="text" data-f="grado" placeholder="Ej: 1ro"></label>
+   <label class="f t">Sección<input type="text" data-f="seccion" placeholder="Ej: A"></label>
+   <label class="f h">Padre, madre o tutor<input type="text" data-f="tutor" placeholder="Nombre del tutor"></label>
+   <label class="f h">Teléfono(s) de contacto<input type="text" data-f="telefono" placeholder="Ej: 809-000-0000"></label>
+   <label class="f h">Docente que refiere<input type="text" data-f="docente" placeholder="Nombre del docente"></label>
+   <label class="f h">Área / Asignatura<input type="text" data-f="asignatura" placeholder="Ej: Matemáticas"></label>
+  </div></div>
+  <div class="card"><h2><span class="num">2</span>Motivo del referimiento</h2><div id="areas"></div>
+   <label class="f" style="margin-top:10px">Especifique otros motivos<input type="text" data-f="otrosMotivos" placeholder="Escriba aquí..."></label></div>
+  <div class="card"><h2><span class="num">3</span>Descripción objetiva de la situación</h2><textarea data-f="descripcion" aria-label="Descripción" placeholder="Describa de forma clara y sin emitir diagnósticos qué ocurre, con qué frecuencia se presenta y desde cuándo lo ha notado..."></textarea></div>
+  <div class="card"><h2><span class="num">4</span>Acciones y estrategias previas</h2><div class="checks" id="previas"></div>
+   <label class="f" style="margin-top:12px">Resultados obtenidos con estas acciones<textarea data-f="resultados" placeholder="Describa los resultados..."></textarea></label></div>
+  <div class="bar"><button type="button" class="btn sec" data-clear>🧹 Limpiar</button><button type="button" class="btn pri" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button></div>
+ </form>
+
+ <div class="preview"><p class="preview-label">👁️ Vista previa del documento</p>
+  <article class="sheet">
+   <div class="dh"><div class="logo" data-logo>PRMP</div><div><h3>POLITÉCNICO RAFAELA MARRERO PAULINO</h3><p>Código del Centro (15446) Los Ángeles, Santiago, (R.D.) Tel. (809) 471-2898</p></div></div>
+   <div class="dt">Ficha de referimiento de estudiantes</div>
+   <div class="conf">DOCUMENTO CONFIDENCIAL (MINERD - UNIDAD DE ORIENTACIÓN Y PSICOLOGÍA)</div>
+   <div class="st">1. Datos generales del centro y del estudiante</div>
+   <table>
+    <tr><td><b>Regional:</b> <span class="v" data-p="regional"></span></td><td><b>Distrito Educativo:</b> <span class="v" data-p="distrito"></span></td></tr>
+    <tr><td><b>Centro Educativo:</b> <span class="v" data-p="centro"></span></td><td><b>Tanda:</b> <span class="v" data-p="tanda"></span></td></tr>
+    <tr><td colspan="2"><b>Nombre(s) y apellido(s) del estudiante:</b> <span class="v" data-p="estudiante"></span></td></tr>
+    <tr><td><b>Edad:</b> <span class="v" data-p="edad"></span> años | <b>Fecha de nac.:</b> <span class="v" data-p="nac"></span></td><td><b>Sexo:</b> <span class="v" data-p="sexo"></span> | <b>Fecha referimiento:</b> <span class="v" data-p="fechaRef"></span></td></tr>
+    <tr><td><b>Nivel:</b> <span class="v" data-p="nivel"></span> <b>Grado:</b> <span class="v" data-p="grado"></span></td><td><b>Sección:</b> <span class="v" data-p="seccion"></span></td></tr>
+    <tr><td><b>Padre, madre o tutor:</b> <span class="v" data-p="tutor"></span></td><td><b>Teléfono(s) de contacto:</b> <span class="v" data-p="telefono"></span></td></tr>
+    <tr><td><b>Docente que refiere:</b> <span class="v" data-p="docente"></span></td><td><b>Área / Asignatura:</b> <span class="v" data-p="asignatura"></span></td></tr>
+   </table>
+   <div class="st">2. Motivo del referimiento (marcados con una X)</div><table id="areasDoc"></table>
+   <div class="st">3. Descripción objetiva de la situación observada</div>
+   <div class="hint">Describa de forma clara y sin emitir diagnósticos qué ocurre, con qué frecuencia se presenta y desde cuándo lo ha notado.</div>
+   <div class="box" data-p="descripcion"></div>
+   <div class="st">4. Acciones y estrategias previas realizadas por el docente</div><div id="previasDoc"></div>
+   <div style="font-weight:700;margin:5px 0 3px">Resultados obtenidos con estas acciones:</div><div class="box" data-p="resultados"></div>
+   <div style="break-inside:avoid"><div class="st">5. Firmas y constancia de recepción</div>
+   <div class="signs" style="margin-top:6px">
+    <div><b>Elaborado por (Docente):</b><br>Nombre: <span class="v" data-p="docente"></span><div class="sl"></div>Firma<br><br>Fecha: ______ / ______ / 20____</div>
+    <div><b>Recibido por (Orientación y Psicología):</b><br>Nombre: __________________________<div class="sl"></div>Firma y Sello<br><br>Fecha y hora: ____ / ____ / 20____ &nbsp;____:____</div>
+   </div></div>
+  </article>
+ </div>
+</section>
+</main>
+
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+const motivos = [
+ "1) Conversa constantemente durante las clases.",
+ "2) No realiza las actividades asignadas en el aula.",
+ "3) No entrega las tareas y los trabajos en las fechas establecidas.",
+ "4) Falta frecuentemente a clases o llega tarde.",
+ "5) No estudia ni repasa los contenidos impartidos.",
+ "6) No se prepara para las pruebas y evaluaciones.",
+ "7) No participa en las actividades de aprendizaje.",
+ "8) Copia las tareas de otros compañeros sin comprender el contenido.",
+ "9) Muestra desinterés por aprender y mejorar sus resultados.",
+ "11) Interrumpe constantemente el desarrollo de las clases.",
+ "12) Abandona las actividades cuando presenta alguna dificultad.",
+ "13) No pregunta cuando tiene dudas sobre los contenidos.",
+ "14) Presenta competencias aplazadas del periodo trabajado.",
+ "15) No presta atención durante las explicaciones del maestro."
+];
+const areas = [
+ ["Área Conductual y de Convivencia", ["Agresividad física o verbal hacia compañeros o docentes","Aislamiento social o dificultad para relacionarse","Dificultad reiterada para seguir instrucciones y normas","Incumplimiento de las Normas de Convivencia Escolar","Interrupción constante de la clase / Impulsividad"]],
+ ["Área Académica y de Aprendizaje", ["Bajo rendimiento académico repentino o persistente","Rezago en lectura, escritura o cálculo matemático","Dificultad marcada de atención y concentración","Posible Necesidad Específica de Apoyo Educativo (NEAE)"]],
+ ["Área Psicoemocional y Familiar", ["Cambios bruscos de ánimo (tristeza, llanto, apatía, ansiedad)","Descuido evidente en higiene o presentación personal","Ausentismo o tardanzas frecuentes sin justificación","Otros (especifique)"]]
+];
+const previas = [
+ ["Diálogo individual con el estudiante", true],
+ ["Cambio de ubicación o ajustes en dinámica de grupo"],
+ ["Adaptación de actividades / apoyo individualizado"],
+ ["Llamada telefónica a la familia", true],
+ ["Entrevista con padre/madre/tutor", true],
+ ["Registro en el cuaderno de incidencias o anecdotario"]
+];
+
+const check = (key, text) => `<label class="chk"><input type="checkbox" data-c="${key}"><span>${text}</span></label>`;
+const mark = (key, text) => `<div class="m" data-m="${key}"><i></i><span>${text}</span></div>`;
+
+$('#motivos').innerHTML = motivos.map((t, i) => check('a' + i, t)).join('');
+$('#motivosDoc').innerHTML = motivos.map((t, i) => mark('a' + i, t)).join('');
+
+let n = 0, formHTML = '', docHTML = '';
+areas.forEach(([titulo, items]) => {
+ const keys = items.map(t => ['m' + (++n), t]);
+ formHTML += `<h4>${titulo}</h4><div class="checks">${keys.map(([k, t]) => check(k, t)).join('')}</div>`;
+ docHTML += `<tr><td colspan="2" class="cat">${titulo}</td></tr>`;
+ for (let i = 0; i < keys.length; i += 2) {
+  const par = keys.slice(i, i + 2);
+  docHTML += '<tr>' + par.map(([k, t]) => {
+   const extra = k === 'm13' ? ': <span class="v" data-p="otrosMotivos"></span>' : '';
+   return `<td${par.length === 1 ? ' colspan="2"' : ''}>${mark(k, t + extra)}</td>`;
+  }).join('') + '</tr>';
+ }
+});
+$('#areas').innerHTML = formHTML;
+$('#areasDoc').innerHTML = docHTML;
+
+$('#previas').innerHTML = previas.map(([t, fecha], i) =>
+ `<div class="action">${check('p' + i, t)}${fecha ? `<input type="date" data-f="p${i}f" data-for="p${i}" aria-label="Fecha: ${t}">` : ''}</div>`).join('');
+$('#previasDoc').innerHTML = previas.map(([t, fecha], i) =>
+ mark('p' + i, t + (fecha ? ` (Fecha: <span class="v" data-p="p${i}f" style="min-width:70px"></span>)` : ''))).join('');
+
+const formatDate = v => v ? v.split('-').reverse().join('/') : '';
+const hoy = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); };
+
+function render(panel) {
+ $$('[data-f]', panel).forEach(el => {
+  const value = el.type === 'date' ? formatDate(el.value) : el.value;
+  $$(`[data-p="${el.dataset.f}"]`, panel).forEach(out => out.textContent = value);
+ });
+ $$('[data-c]', panel).forEach(el => $(`[data-m="${el.dataset.c}"]`, panel).classList.toggle('on', el.checked));
+}
+
+let dirty = false;
+$$('.panel').forEach(panel => {
+ $$('[data-today]', panel).forEach(el => el.value = hoy());
+ const onEdit = e => {
+  const el = e.target;
+  dirty = true;
+  // Al escribir una fecha u "otros motivos", se marca la casilla correspondiente
+  if (el.dataset.for && el.value) $(`[data-c="${el.dataset.for}"]`, panel).checked = true;
+  if (el.dataset.f === 'otrosMotivos' && el.value.trim()) $('[data-c="m13"]', panel).checked = true;
+  // Edad automática a partir de la fecha de nacimiento
+  if (el.dataset.f === 'nac' || el.dataset.f === 'fechaRef') {
+   const nac = $('[data-f="nac"]', panel).value, ref = $('[data-f="fechaRef"]', panel).value || hoy();
+   if (nac) {
+    const edad = +ref.slice(0, 4) - +nac.slice(0, 4) - (ref.slice(5) < nac.slice(5) ? 1 : 0);
+    if (edad >= 0 && edad < 100) $('[data-f="edad"]', panel).value = edad;
+   }
+  }
+  render(panel);
+ };
+ panel.addEventListener('input', onEdit);
+ panel.addEventListener('change', onEdit);
+ $('[data-clear]', panel).addEventListener('click', () => {
+  if (!confirm('¿Está seguro de que desea limpiar este reporte?')) return;
+  $('form', panel).reset();
+  $$('[data-today]', panel).forEach(el => el.value = hoy());
+  render(panel);
+ });
+ render(panel);
+});
+addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+// Pestañas
+function showTab(id) {
+ document.body.dataset.tab = id;
+ $$('.tab').forEach(t => t.setAttribute('aria-selected', t.dataset.t === id));
+ $$('.panel').forEach(p => p.classList.toggle('active', p.id === id));
+}
+$$('.tab').forEach(t => t.addEventListener('click', () => { showTab(t.dataset.t); history.replaceState(null, '', '#ver-' + t.dataset.t); }));
+if (location.hash === '#ver-psico') showTab('psico');
+
+// Logo: usa el cargado por el usuario o "Logo politecnico.jpeg" junto a esta página
+function setLogo(src) {
+ const img = new Image();
+ img.onload = () => $$('[data-logo]').forEach(box => { const c = img.cloneNode(); c.alt = 'Logo PRMP'; box.replaceChildren(c); });
+ img.src = src;
+}
+let saved = null;
+try { saved = localStorage.getItem('prmpLogo'); } catch (e) {}
+setLogo(saved || 'Logo%20politecnico.jpeg');
+$('#logoBtn').addEventListener('click', () => $('#logoFile').click());
+$('#logoFile').addEventListener('change', e => {
+ const file = e.target.files[0];
+ if (!file) return;
+ const reader = new FileReader();
+ reader.onload = () => { setLogo(reader.result); try { localStorage.setItem('prmpLogo', reader.result); } catch (err) {} };
+ reader.readAsDataURL(file);
+});
+</script>
+</body>
+</html>
